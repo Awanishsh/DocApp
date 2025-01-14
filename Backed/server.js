@@ -6,7 +6,7 @@ import connecCloudinary from "./config/cloudinary.js";
 import adminRouter from "./routes/adminRoute.js";
 import userRouter from "./routes/userRoute.js";
 import doctorRouter from "./routes/doctorRoute.js";
-import path  from 'path'
+
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -23,10 +23,7 @@ app.use("/api/user", userRouter);
 
 app.use("/api/doctor", doctorRouter);
 
-app.use(express.static(path.join(__dirname, './Client/dist' || __dirname, './admin/dist')))
-app.get('*', function(req, res){
-  res.sendFile(path.join(__dirname,'./Client/dist/index.html' || __dirname, './admin/dist/index.html'))
-})
+
 app.get("/", (req, res) => {
   res.send("Api working1");
 });
