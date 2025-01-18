@@ -29,16 +29,14 @@ const allowedOrigins = [
 // CORS configuration
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or Postman)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true); // Allow the origin
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS')); // Reject other origins
+      callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true, // Allow cookies and credentials
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header'], // Add any custom headers you're sending
+  credentials: false,
 };
 
 // Middleware to handle CORS
