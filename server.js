@@ -18,7 +18,10 @@ connecCloudinary();
 
 // middelwares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin:"https://startling-kangaroo-bcc26e.netlify.app/",
+  credentials:true
+}));
 
 // api endpoint
 app.use("/api/admin", adminRouter);
