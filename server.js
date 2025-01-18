@@ -18,10 +18,34 @@ connecCloudinary();
 
 // middelwares
 app.use(express.json());
-app.use(cors({
-  origin:"https://startling-kangaroo-bcc26e.netlify.app/",
-  credentials:true
-}));
+
+// Configure CORS to allow all origins
+// List of allowed origins
+const allowedOrigins = [
+  'https://startling-kangaroo-bcc26e.netlify.app',
+  'https://docappppointmentapp.netlify.app',
+];
+
+// CORS configuration
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the origin
+    } else {
+      callback(new Error('Not allowed by CORS')); // Reject other origins
+    }
+  },
+  credentials: true, // Allow cookies and credentials
+};
+
+// Middleware to handle CORS
+app.use(cors(corsOptions));
+
+// Preflight requests handler for all routes
+app.options('*', cors(corsOptions));
 
 // api endpoint
 app.use("/api/admin", adminRouter);
