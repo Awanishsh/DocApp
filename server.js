@@ -18,7 +18,9 @@ connecCloudinary();
 
 // middelwares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin:"https://polite-yeot-58554a.netlify.app/"
+}));
 
 // api endpoint
 app.use("/api/admin", adminRouter);
